@@ -19,4 +19,3 @@ export const rerenderEntireTree = (state) => { // метод рендера ДО
 
 rerenderEntireTree(store.getState()); // рендер при загрузке
 store.subscribe(rerenderEntireTree); // подписка на рендер при изменении состояния
-// TODO: 40 - React JS Практика - добавление Сообщения
