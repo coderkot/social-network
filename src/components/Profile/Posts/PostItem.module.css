@@ -1,0 +1,25 @@
+.item {
+    color: #4b4b4b;
+    margin-top: 20px;
+    /*padding: 10px;*/
+    display: grid;
+    grid-template-columns: 0fr 1fr;
+}
+
+.item img {
+    width: 60px;
+    border: 2px solid #7e7d7d;
+    border-radius: 100%;
+}
+
+.item .message {
+    display: flex;
+    padding: 10px;
+    word-break: break-all;
+    margin-left: 20px;
+    background: #fff
+}
+
+.likes {
+    margin: 0;
+}

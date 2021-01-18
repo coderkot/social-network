@@ -1,0 +1,14 @@
+.profileCover {
+    width: 1000px;
+    height: 200px;
+    /*background: url("https://biggarden.scot/wp-content/uploads/2019/01/20190119-1-1000x200.jpg");*/
+    background: url("https://i.ytimg.com/vi/rAZC_jDT5z8/maxresdefault.jpg") no-repeat;
+    background-size: cover;
+    background-position-y: 30%;
+    color: #ffffff;
+}
+
+.descriptionBlock {
+    padding: 10px;
+    color: #ffffff;
+}
