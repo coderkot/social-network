@@ -6,22 +6,26 @@ import {addPostActionCreator, updateNewPostActionCreator} from "../../../redux/s
 export const Posts = (props) => {
 
     /** posts list **/
-    // вывод списка сообщений на стене
     let postsElements = props.posts.map(
         post => (<PostItem text={post.message} likes={post.likes} key={post.id}/>)
     ).reverse();
 
     /** button click handler **/
-    // обработчик нажатия кнопки добавления сообщения на стену
     let buttonOnClickCallback = () => {
-        props.dispatch(addPostActionCreator()); // диспатч по типу экшена
+        props.dispatch(addPostActionCreator());
     };
 
-    let newPostRef = React.createRef(); // ссылка на текстэреа
+    let newPostRef = React.createRef();
     let textareaOnChangeHandler = () => {
-        let postMessage = newPostRef.current.value; // текущее значение из текстэреа
+        let postMessage = newPostRef.current.value;
         let action = updateNewPostActionCreator(postMessage);
-        props.dispatch(action); // диспатч по типу экшена
+        props.dispatch(action);
+    }
+
+    let textareaOnKeyDownHandler = (e) => {
+        if ((e.ctrlKey) && ((e.keyCode === 10) || (e.keyCode === 13))) {
+            buttonOnClickCallback();
+        }
     }
 
     return (
@@ -34,6 +38,7 @@ export const Posts = (props) => {
                         ref={newPostRef}
                         value={props.newPostText}
                         onChange={textareaOnChangeHandler}
+                        onKeyDown={(e) => textareaOnKeyDownHandler(e)}
                     />
                 </div>
                 <div style={{minHeight: "40px", overflow: "hidden"}}>

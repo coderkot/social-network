@@ -9,8 +9,8 @@ export const Profile = (props) => {
             <ProfileInfo/>
 
             <Posts
-                posts={props.profilePage.posts} // список постов
-                newPostText={props.profilePage.newPostText} // состояние изменения текстэриа
+                posts={props.profilePage.posts}
+                newPostText={props.profilePage.newPostText}
                 dispatch={props.dispatch}
             />
         </div>

@@ -7,28 +7,26 @@ import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../red
 export const Dialogs = (props) => {
 
     /** users list **/
-    // вывод списка пользователей в диалоге
     let usersElements = props.state.users.map(
         user => (<DialogItem name={user.name} id={user.id} key={user.id}/>)
     );
 
     /** messages list **/
-    // вывод сообщений в переписке
     let messagesElements = props.state.messages.map(
         message => (<Message incoming={message.incoming} message={message.message} key={message.id}/>)
     );
 
     /** button click handler **/
-    let newMessageRef = React.createRef(); // ссылка на текстэреа
-    let buttonClickCallback = () => { // обработчик отправки сообщения
+    let newMessageRef = React.createRef();
+    let buttonClickCallback = () => {
         props.dispatch(sendMessageActionCreator());
         newMessageRef.current.focus();
     }
 
     let textareaOnChangeHandler = () => {
-        let newMessage = newMessageRef.current.value; // текущее значение из текстэреа
+        let newMessage = newMessageRef.current.value;
         let action = updateNewMessageActionCreator(newMessage);
-        props.dispatch(action); // диспатч по типу экшена
+        props.dispatch(action);
     }
 
     let textareaOnKeyDownHandler = (e) => {

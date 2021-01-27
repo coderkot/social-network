@@ -17,9 +17,9 @@ function App(props) {
                 <Header/>
                 <Nav/>
                 <div className="app-wrapper-content">
-                    <Route path="/profile" render={ // Роуты для организации переходов
+                    <Route path="/profile" render={
                         () => <Profile
-                            profilePage={props.state.profilePage} // список постов
+                            profilePage={props.state.profilePage}
                             dispatch={props.dispatch}
                         />
                     }/>
@@ -27,7 +27,7 @@ function App(props) {
                         () => <Dialogs
                             state={props.state.messagesPage}
                             dispatch={props.dispatch}
-                        /> // список диалогов\сообщений\пользователей
+                        />
                     }/>
                     <Route path="/music" component={Music}/>
                     <Route path="/news" component={News}/>

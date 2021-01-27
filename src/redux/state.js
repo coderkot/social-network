@@ -3,10 +3,9 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
-let store = { // хранилище состояния
-    _state: { // состояние
+let store = {
+    _state: {
         profilePage: {
-            // посты
             posts: [
                 {id: '27F3F443-8E82-4C1B-934C-F27F83732102', message: "Hi", likes: 5},
                 {id: '27F3F443-8E82-4C1B-934C-F27F83732103', message: "I learn ReactJS", likes: 666},
@@ -20,7 +19,6 @@ let store = { // хранилище состояния
             ],
             newPostText: ''
         },
-        // сообщения
         messagesPage: {
             users: [
                 {id: '2C2F108A-1005-465B-8590-C3E398E26A91', name: "Yana"},
@@ -43,7 +41,6 @@ let store = { // хранилище состояния
             newMessageText: '',
         },
     },
-    // метод для попдписки на изменение состояния
     _callSubscriber(state) {
     },
     _generateID() {
@@ -53,28 +50,28 @@ let store = { // хранилище состояния
             return v.toString(16);
         }).toUpperCase();
     },
-    // получить текущее состояние
+    // get current state
     getState() {
         return this._state;
     },
-    // подписаться и вызвать метод перерисовки при изменении состояния
+    // subscribe & call rerender method when state changed
     subscribe(observer) {
         this._callSubscriber = observer;
     },
-    // выполнить метод по типу экшена при изменении состояния
+    // evaluate method by action.type
     dispatch(action) {
         if (action.type === ADD_POST) {
             let state = this.getState()
             let newMessage = state.profilePage.newPostText
                 .replace(/^\s*/, '')
-                .replace(/\s*$/, ''); // удалить пробелы в начале и в конце
+                .replace(/\s*$/, ''); // delete spaces
             let post = {
                 id: this._generateID(),
                 message: newMessage,
                 likes: 0
             };
 
-            if (newMessage !== '') { // добавить пост если он не пустой
+            if (newMessage !== '') {
                 state.profilePage.posts.push(post);
                 this._callSubscriber(this._state);
                 state.profilePage.newPostText = '';
