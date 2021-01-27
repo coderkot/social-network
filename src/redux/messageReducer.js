@@ -10,9 +10,7 @@ export const messageReducer = (state, action) => {
             state.newMessageText = action.newMessageText;
             return state;
         case SEND_MESSAGE:
-            let newMessage = state.newMessageText
-                .replace(/^\s*/, '')
-                .replace(/\s*$/, '');
+            let newMessage = state.newMessageText.trim();
             let message = {
                 id: IDGenerator(),
                 message: newMessage,

@@ -22,6 +22,8 @@
 }
 
 .message {
+    word-wrap: break-word;
+    word-break: break-all;
     overflow: hidden;
     margin: 5px 10px;
 }

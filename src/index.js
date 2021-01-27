@@ -20,3 +20,4 @@ export const rerenderEntireTree = (state) => { // entry point
 
 rerenderEntireTree(store.getState()); // render by load
 store.subscribe(rerenderEntireTree); // rerender when state changed
+// TODO: 42 - React JS Практика - Redux

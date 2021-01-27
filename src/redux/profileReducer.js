@@ -6,9 +6,7 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 export const profileReducer = (state, action) => {
     switch (action.type) {
         case ADD_POST:
-            let newMessage = state.newPostText
-                .replace(/^\s*/, '')
-                .replace(/\s*$/, ''); // delete spaces
+            let newMessage = state.newPostText.trim();
             let post = {
                 id: IDGenerator(),
                 message: newMessage,
