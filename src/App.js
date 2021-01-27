@@ -14,8 +14,8 @@ function App(props) {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
-                <Header/>
-                <Nav/>
+                <Header />
+                <Nav />
                 <div className="app-wrapper-content">
                     <Route path="/profile" render={
                         () => <Profile
@@ -24,14 +24,11 @@ function App(props) {
                         />
                     }/>
                     <Route path="/dialogs" render={
-                        () => <Dialogs
-                            state={props.state.messagesPage}
-                            dispatch={props.dispatch}
-                        />
+                        () => <Dialogs store={props.store} />
                     }/>
-                    <Route path="/music" component={Music}/>
-                    <Route path="/news" component={News}/>
-                    <Route path="/settings" component={Settings}/>
+                    <Route path="/music" component={Music} />
+                    <Route path="/news" component={News} />
+                    <Route path="/settings" component={Settings} />
                 </div>
             </div>
         </BrowserRouter>

@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD_POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
-const SEND_MESSAGE = 'SEND_MESSAGE';
+import {profileReducer} from "./profileReducer"
+import {messageReducer} from "./messageReducer"
+import {sidebarReducer} from "./sidebarReducer"
 
 let store = {
     _state: {
@@ -40,15 +39,9 @@ let store = {
             ],
             newMessageText: '',
         },
+        sidebar: {},
     },
     _callSubscriber(state) {
-    },
-    _generateID() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            // eslint-disable-next-line no-mixed-operators,eqeqeq
-            let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        }).toUpperCase();
     },
     // get current state
     getState() {
@@ -60,56 +53,14 @@ let store = {
     },
     // evaluate method by action.type
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let state = this.getState()
-            let newMessage = state.profilePage.newPostText
-                .replace(/^\s*/, '')
-                .replace(/\s*$/, ''); // delete spaces
-            let post = {
-                id: this._generateID(),
-                message: newMessage,
-                likes: 0
-            };
+        let state = this.getState();
 
-            if (newMessage !== '') {
-                state.profilePage.posts.push(post);
-                this._callSubscriber(this._state);
-                state.profilePage.newPostText = '';
-            }
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this.getState().profilePage.newPostText = action.newPostText;
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this.getState().messagesPage.newMessageText = action.newMessageText;
-            this._callSubscriber(this._state);
-        } else if (action.type === SEND_MESSAGE) {
-            let state = this.getState()
-            let newMessage = state.messagesPage.newMessageText
-                .replace(/^\s*/, '')
-                .replace(/\s*$/, '');
-            let message = {
-                id: this._generateID(),
-                message: newMessage,
-                incoming: false
-            };
+        state.profilePage = profileReducer(state.profilePage, action);
+        state.messagesPage = messageReducer(state.messagesPage, action);
+        state.sidebar = sidebarReducer(state.sidebar, action);
 
-            if (newMessage !== '') {
-                state.messagesPage.messages.push(message);
-                this._callSubscriber(this._state);
-                state.messagesPage.newMessageText = '';
-            }
-        }
+        this._callSubscriber(state);
     },
 }
-
-export const addPostActionCreator = () => ({type: ADD_POST});
-
-export const updateNewPostActionCreator = (postMessage) =>
-    ({type: UPDATE_NEW_POST_TEXT, newPostText: postMessage});
-
-export const updateNewMessageActionCreator = (newMessage) =>
-    ({type: UPDATE_NEW_MESSAGE_TEXT, newMessageText: newMessage});
-
-export const sendMessageActionCreator = () => ({type: SEND_MESSAGE});
 
 export default store;

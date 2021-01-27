@@ -11,6 +11,7 @@ export const rerenderEntireTree = (state) => { // entry point
             <App
                 state={state}
                 dispatch={store.dispatch.bind(store)} /* dispatch methods by action.type */
+                store={store}
             />
         </BrowserRouter>,
         document.getElementById('root')

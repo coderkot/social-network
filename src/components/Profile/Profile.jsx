@@ -6,7 +6,7 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo"
 export const Profile = (props) => {
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo />
 
             <Posts
                 posts={props.profilePage.posts}

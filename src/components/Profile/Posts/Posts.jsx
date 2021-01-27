@@ -1,13 +1,13 @@
 import React from "react"
 import style from "./Posts.module.css"
 import {PostItem} from "./PostItem"
-import {addPostActionCreator, updateNewPostActionCreator} from "../../../redux/state"
+import {addPostActionCreator, updateNewPostActionCreator} from "../../../redux/profileReducer"
 
 export const Posts = (props) => {
 
     /** posts list **/
     let postsElements = props.posts.map(
-        post => (<PostItem text={post.message} likes={post.likes} key={post.id}/>)
+        post => (<PostItem text={post.message} likes={post.likes} key={post.id} />)
     ).reverse();
 
     /** button click handler **/

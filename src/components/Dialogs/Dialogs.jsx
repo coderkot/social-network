@@ -2,31 +2,33 @@ import React from 'react';
 import style from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem"
 import {Message} from "./Message/Message"
-import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../redux/state"
+import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../redux/messageReducer"
 
 export const Dialogs = (props) => {
 
+    let state = props.store.getState().messagesPage;
+
     /** users list **/
-    let usersElements = props.state.users.map(
-        user => (<DialogItem name={user.name} id={user.id} key={user.id}/>)
+    let usersElements = state.users.map(
+        user => (<DialogItem name={user.name} id={user.id} key={user.id} />)
     );
 
     /** messages list **/
-    let messagesElements = props.state.messages.map(
-        message => (<Message incoming={message.incoming} message={message.message} key={message.id}/>)
+    let messagesElements = state.messages.map(
+        message => (<Message incoming={message.incoming} message={message.message} key={message.id} />)
     );
 
     /** button click handler **/
     let newMessageRef = React.createRef();
     let buttonClickCallback = () => {
-        props.dispatch(sendMessageActionCreator());
+        props.store.dispatch(sendMessageActionCreator());
         newMessageRef.current.focus();
     }
 
     let textareaOnChangeHandler = () => {
         let newMessage = newMessageRef.current.value;
         let action = updateNewMessageActionCreator(newMessage);
-        props.dispatch(action);
+        props.store.dispatch(action);
     }
 
     let textareaOnKeyDownHandler = (e) => {
@@ -46,7 +48,7 @@ export const Dialogs = (props) => {
                     <textarea
                         placeholder="Enter your message..."
                         ref={newMessageRef}
-                        onChange={textareaOnChangeHandler} value={props.state.newMessageText}
+                        onChange={textareaOnChangeHandler} value={ state.newMessageText }
                         onKeyDown={(e) => textareaOnKeyDownHandler(e)}/>
                     <button onClick={buttonClickCallback}>💬 Send</button>
                 </div>
