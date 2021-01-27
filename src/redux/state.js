@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
+const SEND_MESSAGE = 'SEND_MESSAGE';
 
 let store = { // хранилище состояния
     _state: { // состояние
@@ -38,10 +40,12 @@ let store = { // хранилище состояния
                 {id: '2C2F108A-1005-465B-8590-C3E398E26A99', message: "Fine man.", incoming: true},
                 {id: '2C2F108A-1005-465B-8590-C3E398E26A00', message: "Bye!", incoming: true},
             ],
+            newMessageText: '',
         },
     },
     // метод для попдписки на изменение состояния
-    _callSubscriber(state) {},
+    _callSubscriber(state) {
+    },
     _generateID() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             // eslint-disable-next-line no-mixed-operators,eqeqeq
@@ -78,13 +82,37 @@ let store = { // хранилище состояния
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this.getState().profilePage.newPostText = action.newPostText;
             this._callSubscriber(this._state);
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+            this.getState().messagesPage.newMessageText = action.newMessageText;
+            this._callSubscriber(this._state);
+        } else if (action.type === SEND_MESSAGE) {
+            let state = this.getState()
+            let newMessage = state.messagesPage.newMessageText
+                .replace(/^\s*/, '')
+                .replace(/\s*$/, '');
+            let message = {
+                id: this._generateID(),
+                message: newMessage,
+                incoming: false
+            };
+
+            if (newMessage !== '') {
+                state.messagesPage.messages.push(message);
+                this._callSubscriber(this._state);
+                state.messagesPage.newMessageText = '';
+            }
         }
     },
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
+export const addPostActionCreator = () => ({type: ADD_POST});
 
 export const updateNewPostActionCreator = (postMessage) =>
-    ({type: UPDATE_NEW_POST_TEXT, newPostText: postMessage})
+    ({type: UPDATE_NEW_POST_TEXT, newPostText: postMessage});
+
+export const updateNewMessageActionCreator = (newMessage) =>
+    ({type: UPDATE_NEW_MESSAGE_TEXT, newMessageText: newMessage});
+
+export const sendMessageActionCreator = () => ({type: SEND_MESSAGE});
 
 export default store;

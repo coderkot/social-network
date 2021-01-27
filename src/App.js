@@ -24,7 +24,10 @@ function App(props) {
                         />
                     }/>
                     <Route path="/dialogs" render={
-                        () => <Dialogs state={props.state.messagesPage}/> // список диалогов\сообщений\пользователей
+                        () => <Dialogs
+                            state={props.state.messagesPage}
+                            dispatch={props.dispatch}
+                        /> // список диалогов\сообщений\пользователей
                     }/>
                     <Route path="/music" component={Music}/>
                     <Route path="/news" component={News}/>

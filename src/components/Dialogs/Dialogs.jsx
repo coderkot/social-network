@@ -2,6 +2,7 @@ import React from 'react';
 import style from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem"
 import {Message} from "./Message/Message"
+import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../redux/state"
 
 export const Dialogs = (props) => {
 
@@ -20,8 +21,20 @@ export const Dialogs = (props) => {
     /** button click handler **/
     let newMessageRef = React.createRef(); // ссылка на текстэреа
     let buttonClickCallback = () => { // обработчик отправки сообщения
-        let value = newMessageRef.current.value; // текущее значение текстэреа
-        alert(value);
+        props.dispatch(sendMessageActionCreator());
+        newMessageRef.current.focus();
+    }
+
+    let textareaOnChangeHandler = () => {
+        let newMessage = newMessageRef.current.value; // текущее значение из текстэреа
+        let action = updateNewMessageActionCreator(newMessage);
+        props.dispatch(action); // диспатч по типу экшена
+    }
+
+    let textareaOnKeyDownHandler = (e) => {
+        if ((e.ctrlKey) && ((e.keyCode === 10) || (e.keyCode === 13))) {
+            buttonClickCallback();
+        }
     }
 
     return (
@@ -32,7 +45,11 @@ export const Dialogs = (props) => {
             <div className={style.messages}>
                 {messagesElements}
                 <div className={style.messageForm}>
-                    <textarea placeholder="Enter your message..." ref={newMessageRef} />
+                    <textarea
+                        placeholder="Enter your message..."
+                        ref={newMessageRef}
+                        onChange={textareaOnChangeHandler} value={props.state.newMessageText}
+                        onKeyDown={(e) => textareaOnKeyDownHandler(e)}/>
                     <button onClick={buttonClickCallback}>💬 Send</button>
                 </div>
             </div>
