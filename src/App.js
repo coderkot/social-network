@@ -9,21 +9,15 @@ import { News } from "./components/News/News";
 import { Settings } from "./components/Settings/Settings";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 
-function App(props) {
+function App() {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
         <Nav />
         <div className="app-wrapper-content">
-          <Route
-            path="/profile"
-            render={() => <Profile />}
-          />
-          <Route
-            path="/dialogs"
-            render={() => <DialogsContainer />}
-          />
+          <Route path="/profile" render={() => <Profile />} />
+          <Route path="/dialogs" render={() => <DialogsContainer />} />
           <Route path="/music" component={Music} />
           <Route path="/news" component={News} />
           <Route path="/settings" component={Settings} />

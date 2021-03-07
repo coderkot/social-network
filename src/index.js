@@ -4,9 +4,9 @@ import "./index.css";
 import App from "./App";
 import store from "./redux/redux-store";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "./StoreContext";
+import { Provider } from "react-redux";
 
-export const rerenderEntireTree = (state) => {
+export const rerenderEntireTree = () => {
   // entry point
   ReactDOM.render(
     <BrowserRouter>
@@ -18,9 +18,7 @@ export const rerenderEntireTree = (state) => {
   );
 };
 
-rerenderEntireTree(store.getState()); // render by load
+rerenderEntireTree(); // render by load
 store.subscribe(() => {
-  let state = store.getState();
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 }); // rerender when state changed
-// TODO: 43

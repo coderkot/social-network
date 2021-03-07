@@ -44,12 +44,12 @@ export const profileReducer = (state = initialState, action) => {
         state.posts.push(post);
         state.newPostText = "";
       }
-      return state;
+      return { ...state };
     case UPDATE_NEW_POST_TEXT:
       state.newPostText = action.newPostText;
-      return state;
+      return { ...state };
     default:
-      return state;
+      return { ...state };
   }
 };
 

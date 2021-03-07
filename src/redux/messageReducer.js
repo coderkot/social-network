@@ -45,7 +45,7 @@ export const messageReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_TEXT:
       state.newMessageText = action.newMessageText;
-      return state;
+      return { ...state };
     case SEND_MESSAGE:
       let newMessage = state.newMessageText.trim();
       let message = {
@@ -58,9 +58,9 @@ export const messageReducer = (state = initialState, action) => {
         state.messages.push(message);
         state.newMessageText = "";
       }
-      return state;
+      return { ...state };
     default:
-      return state;
+      return { ...state };
   }
 };
 

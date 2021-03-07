@@ -3,15 +3,18 @@ import style from "./Dialogs.module.css";
 import { DialogItem } from "./DialogItem/DialogItem";
 import { Message } from "./Message/Message";
 
-export const Dialogs = (props) => {
-  let state = props.state;
+export const Dialogs = ({
+  messagesPage,
+  sendMessage,
+  messageOnChangeHandler,
+}) => {
   /** users list **/
-  let usersElements = state.users.map((user) => (
+  let usersElements = messagesPage.users.map((user) => (
     <DialogItem name={user.name} id={user.id} key={user.id} />
   ));
 
   /** messages list **/
-  let messagesElements = state.messages.map((message) => (
+  let messagesElements = messagesPage.messages.map((message) => (
     <Message
       incoming={message.incoming}
       message={message.message}
@@ -22,18 +25,18 @@ export const Dialogs = (props) => {
   /** button click handler **/
   let newMessageRef = React.createRef();
   let buttonClickCallback = () => {
-    props.sendMessage();
+    sendMessage();
     newMessageRef.current.focus();
   };
 
   let textareaOnChangeHandler = () => {
     let newMessage = newMessageRef.current.value;
-    props.messageOnChangeHandler(newMessage);
+    messageOnChangeHandler(newMessage);
   };
 
   let textareaOnKeyDownHandler = (e) => {
     if (e.ctrlKey && (e.keyCode === 10 || e.keyCode === 13)) {
-      props.sendMessage();
+      sendMessage();
       newMessageRef.current.focus();
     }
   };
@@ -48,7 +51,7 @@ export const Dialogs = (props) => {
             placeholder="Enter your message..."
             ref={newMessageRef}
             onChange={textareaOnChangeHandler}
-            value={state.newMessageText}
+            value={messagesPage.newMessageText}
             onKeyDown={(e) => textareaOnKeyDownHandler(e)}
           />
           <button onClick={buttonClickCallback}>💬 Send</button>

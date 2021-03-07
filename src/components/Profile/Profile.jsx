@@ -3,7 +3,7 @@ import React from "react";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { PostsContainer } from "./Posts/PostsContainer";
 
-export const Profile = (props) => {
+export const Profile = () => {
   return (
     <div>
       <ProfileInfo />
