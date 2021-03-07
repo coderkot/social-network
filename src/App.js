@@ -4,7 +4,6 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { Header } from "./components/Header/Header";
 import { Nav } from "./components/Navbar/Nav";
 import { Profile } from "./components/Profile/Profile";
-import { Dialogs } from "./components/Dialogs/Dialogs";
 import { Music } from "./components/Music/Music";
 import { News } from "./components/News/News";
 import { Settings } from "./components/Settings/Settings";
@@ -19,11 +18,11 @@ function App(props) {
         <div className="app-wrapper-content">
           <Route
             path="/profile"
-            render={() => <Profile store={props.store} />}
+            render={() => <Profile />}
           />
           <Route
             path="/dialogs"
-            render={() => <DialogsContainer store={props.store} />}
+            render={() => <DialogsContainer />}
           />
           <Route path="/music" component={Music} />
           <Route path="/news" component={News} />

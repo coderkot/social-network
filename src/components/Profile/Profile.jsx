@@ -8,7 +8,7 @@ export const Profile = (props) => {
     <div>
       <ProfileInfo />
 
-      <PostsContainer store={props.store} />
+      <PostsContainer />
     </div>
   );
 };

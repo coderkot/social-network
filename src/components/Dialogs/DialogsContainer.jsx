@@ -4,26 +4,41 @@ import {
   updateNewMessageActionCreator,
 } from "../../redux/messageReducer";
 import { Dialogs } from "./Dialogs";
+import StoreContext from "../../StoreContext";
 
 export const DialogsContainer = (props) => {
-  let state = props.store.getState();
-
-  let sandMessage = () => {
-    props.store.dispatch(sendMessageActionCreator());
-  };
-
-  let messageOnChangeHandler = (newMessage) => {
-    let action = updateNewMessageActionCreator(newMessage);
-    props.store.dispatch(action);
-  };
+  // let state = props.store.getState();
+  //
+  // let sandMessage = () => {
+  //   props.store.dispatch(sendMessageActionCreator());
+  // };
+  //
+  // let messageOnChangeHandler = (newMessage) => {
+  //   let action = updateNewMessageActionCreator(newMessage);
+  //   props.store.dispatch(action);
+  // };
 
   return (
-    <Dialogs
-      sendMessage={sandMessage}
-      messageOnChangeHandler={messageOnChangeHandler}
-      users={state.messagesPage.users}
-      messages={state.messagesPage.messages}
-      newMessageText={state.messagesPage.newMessageText}
-    />
+    <StoreContext.Consumer>
+      {(store) => {
+        let state = store.getState();
+        let sandMessage = () => {
+          store.dispatch(sendMessageActionCreator());
+        };
+
+        let messageOnChangeHandler = (newMessage) => {
+          let action = updateNewMessageActionCreator(newMessage);
+          store.dispatch(action);
+        };
+
+        return (
+          <Dialogs
+            sendMessage={sandMessage}
+            messageOnChangeHandler={messageOnChangeHandler}
+            state={state.messagesPage}
+          />
+        );
+      }}
+    </StoreContext.Consumer>
   );
 };

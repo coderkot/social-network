@@ -4,13 +4,14 @@ import { DialogItem } from "./DialogItem/DialogItem";
 import { Message } from "./Message/Message";
 
 export const Dialogs = (props) => {
+  let state = props.state;
   /** users list **/
-  let usersElements = props.users.map((user) => (
+  let usersElements = state.users.map((user) => (
     <DialogItem name={user.name} id={user.id} key={user.id} />
   ));
 
   /** messages list **/
-  let messagesElements = props.messages.map((message) => (
+  let messagesElements = state.messages.map((message) => (
     <Message
       incoming={message.incoming}
       message={message.message}
@@ -47,7 +48,7 @@ export const Dialogs = (props) => {
             placeholder="Enter your message..."
             ref={newMessageRef}
             onChange={textareaOnChangeHandler}
-            value={props.newMessageText}
+            value={state.newMessageText}
             onKeyDown={(e) => textareaOnKeyDownHandler(e)}
           />
           <button onClick={buttonClickCallback}>💬 Send</button>

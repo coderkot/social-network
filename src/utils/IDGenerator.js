@@ -3,6 +3,7 @@ export const IDGenerator = () => {
     .replace(/[xy]/g, function (c) {
       // eslint-disable-next-line no-mixed-operators,eqeqeq
       let r = (Math.random() * 16) | 0,
+          // eslint-disable-next-line eqeqeq
         v = c == "x" ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     })
