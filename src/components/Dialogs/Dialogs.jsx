@@ -1,58 +1,58 @@
-import React from 'react';
-import style from './Dialogs.module.css';
-import {DialogItem} from "./DialogItem/DialogItem"
-import {Message} from "./Message/Message"
-import {sendMessageActionCreator, updateNewMessageActionCreator} from "../../redux/messageReducer"
+import React from "react";
+import style from "./Dialogs.module.css";
+import { DialogItem } from "./DialogItem/DialogItem";
+import { Message } from "./Message/Message";
 
 export const Dialogs = (props) => {
+  /** users list **/
+  let usersElements = props.users.map((user) => (
+    <DialogItem name={user.name} id={user.id} key={user.id} />
+  ));
 
-    let state = props.store.getState().messagesPage;
+  /** messages list **/
+  let messagesElements = props.messages.map((message) => (
+    <Message
+      incoming={message.incoming}
+      message={message.message}
+      key={message.id}
+    />
+  ));
 
-    /** users list **/
-    let usersElements = state.users.map(
-        user => (<DialogItem name={user.name} id={user.id} key={user.id} />)
-    );
+  /** button click handler **/
+  let newMessageRef = React.createRef();
+  let buttonClickCallback = () => {
+    props.sendMessage();
+    newMessageRef.current.focus();
+  };
 
-    /** messages list **/
-    let messagesElements = state.messages.map(
-        message => (<Message incoming={message.incoming} message={message.message} key={message.id} />)
-    );
+  let textareaOnChangeHandler = () => {
+    let newMessage = newMessageRef.current.value;
+    props.messageOnChangeHandler(newMessage);
+  };
 
-    /** button click handler **/
-    let newMessageRef = React.createRef();
-    let buttonClickCallback = () => {
-        props.store.dispatch(sendMessageActionCreator());
-        newMessageRef.current.focus();
+  let textareaOnKeyDownHandler = (e) => {
+    if (e.ctrlKey && (e.keyCode === 10 || e.keyCode === 13)) {
+      props.sendMessage();
+      newMessageRef.current.focus();
     }
+  };
 
-    let textareaOnChangeHandler = () => {
-        let newMessage = newMessageRef.current.value;
-        let action = updateNewMessageActionCreator(newMessage);
-        props.store.dispatch(action);
-    }
-
-    let textareaOnKeyDownHandler = (e) => {
-        if ((e.ctrlKey) && ((e.keyCode === 10) || (e.keyCode === 13))) {
-            buttonClickCallback();
-        }
-    }
-
-    return (
-        <div className={style.dialogs}>
-            <div className={style.dialogItems}>
-                {usersElements}
-            </div>
-            <div className={style.messages}>
-                {messagesElements}
-                <div className={style.messageForm}>
-                    <textarea
-                        placeholder="Enter your message..."
-                        ref={newMessageRef}
-                        onChange={textareaOnChangeHandler} value={ state.newMessageText }
-                        onKeyDown={(e) => textareaOnKeyDownHandler(e)}/>
-                    <button onClick={buttonClickCallback}>💬 Send</button>
-                </div>
-            </div>
+  return (
+    <div className={style.dialogs}>
+      <div className={style.dialogItems}>{usersElements}</div>
+      <div className={style.messages}>
+        {messagesElements}
+        <div className={style.messageForm}>
+          <textarea
+            placeholder="Enter your message..."
+            ref={newMessageRef}
+            onChange={textareaOnChangeHandler}
+            value={props.newMessageText}
+            onKeyDown={(e) => textareaOnKeyDownHandler(e)}
+          />
+          <button onClick={buttonClickCallback}>💬 Send</button>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};

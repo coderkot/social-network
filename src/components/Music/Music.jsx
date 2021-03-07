@@ -1,10 +1,6 @@
-import React from 'react';
+import React from "react";
 // import style from './Music.module.css';
 
 export const Music = () => {
-    return (
-        <div>
-            Music
-        </div>
-    )
-}
+  return <div>Music</div>;
+};
