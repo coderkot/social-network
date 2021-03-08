@@ -31,9 +31,12 @@ const initialState = {
 };
 
 export const profileReducer = (state = initialState, action) => {
+  let copyState = { ...state };
+  copyState.posts = [...state.posts];
+
   switch (action.type) {
     case ADD_POST:
-      let newMessage = state.newPostText.trim();
+      let newMessage = copyState.newPostText.trim();
       let post = {
         id: IDGenerator(),
         message: newMessage,
@@ -41,15 +44,15 @@ export const profileReducer = (state = initialState, action) => {
       };
 
       if (newMessage !== "") {
-        state.posts.push(post);
-        state.newPostText = "";
+        copyState.posts.push(post);
+        copyState.newPostText = "";
       }
-      return { ...state };
+      return copyState;
     case UPDATE_NEW_POST_TEXT:
-      state.newPostText = action.newPostText;
-      return { ...state };
+      copyState.newPostText = action.newPostText;
+      return copyState;
     default:
-      return { ...state };
+      return state;
   }
 };
 
