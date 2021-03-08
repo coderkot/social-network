@@ -19,6 +19,3 @@ export const rerenderEntireTree = () => {
 };
 
 rerenderEntireTree(); // render by load
-store.subscribe(() => {
-  rerenderEntireTree();
-}); // rerender when state changed
