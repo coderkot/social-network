@@ -31,8 +31,10 @@ const initialState = {
 };
 
 export const profileReducer = (state = initialState, action) => {
-  let copyState = { ...state };
-  copyState.posts = [...state.posts];
+  let copyState = {
+    ...state,
+    posts: [...state.posts],
+  };
 
   switch (action.type) {
     case ADD_POST:

@@ -42,9 +42,11 @@ const initialState = {
 };
 
 export const messageReducer = (state = initialState, action) => {
-  let copyState = { ...state };
-  copyState.messages = [...state.messages];
-  copyState.users = [...state.users];
+  let copyState = {
+    ...state,
+    messages: [...state.messages],
+    users: [...state.users],
+  };
 
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_TEXT:
