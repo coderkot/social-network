@@ -42,17 +42,20 @@ const initialState = {
 };
 
 export const messageReducer = (state = initialState, action) => {
-  let stateCopy = {
-    ...state,
-    messages: [...state.messages],
-    users: [...state.users],
-  };
+  let stateCopy;
 
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_TEXT:
+      stateCopy = {
+        ...state,
+      };
       stateCopy.newMessageText = action.newMessageText;
       return stateCopy;
     case SEND_MESSAGE:
+      stateCopy = {
+        ...state,
+        messages: [...state.messages],
+      };
       let newMessage = stateCopy.newMessageText.trim();
       let message = {
         id: IDGenerator(),
