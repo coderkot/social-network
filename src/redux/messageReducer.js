@@ -42,7 +42,7 @@ const initialState = {
 };
 
 export const messageReducer = (state = initialState, action) => {
-  let copyState = {
+  let stateCopy = {
     ...state,
     messages: [...state.messages],
     users: [...state.users],
@@ -50,10 +50,10 @@ export const messageReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_TEXT:
-      copyState.newMessageText = action.newMessageText;
-      return copyState;
+      stateCopy.newMessageText = action.newMessageText;
+      return stateCopy;
     case SEND_MESSAGE:
-      let newMessage = copyState.newMessageText.trim();
+      let newMessage = stateCopy.newMessageText.trim();
       let message = {
         id: IDGenerator(),
         message: newMessage,
@@ -61,10 +61,10 @@ export const messageReducer = (state = initialState, action) => {
       };
 
       if (newMessage !== "") {
-        copyState.messages.push(message);
-        copyState.newMessageText = "";
+        stateCopy.messages.push(message);
+        stateCopy.newMessageText = "";
       }
-      return copyState;
+      return stateCopy;
     default:
       return state;
   }
