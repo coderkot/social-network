@@ -1,25 +1,17 @@
-import React from "react";
-import style from "./Dialogs.module.css";
-import { DialogItem } from "./DialogItem/DialogItem";
-import { Message } from "./Message/Message";
+import React from 'react';
+import style from './Messages.module.css';
+import { MessageItem } from './MessageItem/MessageItem';
+import { Message } from './Message/Message';
 
-export const Dialogs = ({
-  messagesPage,
-  sendMessage,
-  messageOnChangeHandler,
-}) => {
+export const Messages = ({ messagesPage, sendMessage, messageOnChangeHandler }) => {
   /** users list **/
-  let usersElements = messagesPage.users.map((user) => (
-    <DialogItem name={user.name} id={user.id} key={user.id} />
+  let usersElements = messagesPage.users.map(user => (
+    <MessageItem name={user.name} id={user.id} key={user.id} />
   ));
 
   /** messages list **/
-  let messagesElements = messagesPage.messages.map((message) => (
-    <Message
-      incoming={message.incoming}
-      message={message.message}
-      key={message.id}
-    />
+  let messagesElements = messagesPage.messages.map(message => (
+    <Message incoming={message.incoming} message={message.message} key={message.id} />
   ));
 
   /** button click handler **/
@@ -34,7 +26,7 @@ export const Dialogs = ({
     messageOnChangeHandler(newMessage);
   };
 
-  let textareaOnKeyDownHandler = (e) => {
+  let textareaOnKeyDownHandler = e => {
     if (e.ctrlKey && (e.keyCode === 10 || e.keyCode === 13)) {
       sendMessage();
       newMessageRef.current.focus();
@@ -52,7 +44,7 @@ export const Dialogs = ({
             ref={newMessageRef}
             onChange={textareaOnChangeHandler}
             value={messagesPage.newMessageText}
-            onKeyDown={(e) => textareaOnKeyDownHandler(e)}
+            onKeyDown={e => textareaOnKeyDownHandler(e)}
           />
           <button onClick={buttonClickCallback}>💬 Send</button>
         </div>

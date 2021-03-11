@@ -11,7 +11,11 @@ export const Nav = () => {
             </div>
             <div className={style.item}>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <NavLink to="/dialogs" activeClassName={style.active}>Messages</NavLink>
+                <NavLink to="/messages" activeClassName={style.active}>Messages</NavLink>
+            </div>
+            <div className={style.item}>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <NavLink to="/users" activeClassName={style.active}>Users</NavLink>
             </div>
             <div className={style.item}>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

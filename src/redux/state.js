@@ -1,6 +1,6 @@
-import {profileReducer} from "./profileReducer"
-import {messageReducer} from "./messageReducer"
-import {sidebarReducer} from "./sidebarReducer"
+import {profileReducer} from "./profile-reducer"
+import {messagesReducer} from "./messages-reducer"
+import {sidebarReducer} from "./sidebar-reducer"
 
 let store = {
   _state: {
@@ -83,7 +83,7 @@ let store = {
     let state = this.getState();
 
     state.profilePage = profileReducer(state.profilePage, action);
-    state.messagesPage = messageReducer(state.messagesPage, action);
+    state.messagesPage = messagesReducer(state.messagesPage, action);
     state.sidebar = sidebarReducer(state.sidebar, action);
 
     this._callSubscriber(state);

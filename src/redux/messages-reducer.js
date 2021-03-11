@@ -41,7 +41,7 @@ const initialState = {
   newMessageText: "",
 };
 
-export const messageReducer = (state = initialState, action) => {
+export const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_TEXT:
       return {
